@@ -1,0 +1,56 @@
+{
+  "name": "@orvlabs/iris",
+  "version": "0.1.0",
+  "description": "SDK TypeScript de l'API Iris : client typé de chaque route, vérification des webhooks.",
+  "license": "MIT",
+  "homepage": "https://iris.orvlabs.com/docs",
+  "keywords": [
+    "iris",
+    "email",
+    "transactional",
+    "senegal",
+    "brevo",
+    "sdk",
+    "webhooks",
+    "otp"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "generate": "openapi-typescript https://iris.orvlabs.com/openapi.json -o src/generated/api.ts",
+    "build": "npm run generate && rm -rf dist && tsc",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepublishOnly": "npm test"
+  },
+  "dependencies": {
+    "openapi-fetch": "0.17.0",
+    "standardwebhooks": "1.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.19",
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orvlabs/iris-js.git"
+  },
+  "bugs": "https://github.com/orvlabs/iris-js/issues",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

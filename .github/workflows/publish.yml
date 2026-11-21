@@ -1,0 +1,25 @@
+name: publish
+on:
+  schedule: [{ cron: '0 6 * * *' }]
+  workflow_dispatch:
+  push: { branches: [main] }
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, registry-url: 'https://registry.npmjs.org' }
+      - run: npm ci
+      - run: npm test
+      - name: Publish when the API or the code changed
+        run: |
+          if ! npm view @orvlabs/iris version >/dev/null 2>&1; then npm publish; exit 0; fi
+          npm pack @orvlabs/iris@latest --silent >/dev/null && mkdir old && tar -xzf orvlabs-iris-*.tgz -C old && rm orvlabs-iris-*.tgz
+          if diff -rq dist old/package/dist >/dev/null; then echo "unchanged"; exit 0; fi
+          npm version "$(npm view @orvlabs/iris version)" --no-git-tag-version --allow-same-version >/dev/null
+          npm version patch --no-git-tag-version
+          npm publish
