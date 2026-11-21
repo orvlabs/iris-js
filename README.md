@@ -1,6 +1,6 @@
 # @orvlabs/iris
 
-Typed client for the [Iris API](https://iris.orvlabs.com/docs). Types come from the OpenAPI document, so every route, body and error is checked at compile time.
+Typed client for the [Iris API](https://iris.orvlabs.com/docs). Types come from the OpenAPI document, so every route, body and error is checked at compile time. A new version is published, with npm provenance, whenever the API changes.
 
 Server only (Node 20.19+): never ship your API key to a browser.
 
