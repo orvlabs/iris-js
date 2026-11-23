@@ -1,6 +1,6 @@
 {
   "name": "@orvlabs/iris",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "SDK TypeScript de l'API Iris : client typé de chaque route, vérification des webhooks.",
   "license": "MIT",
   "homepage": "https://iris.orvlabs.com/docs",
@@ -9,7 +9,6 @@
     "email",
     "transactional",
     "senegal",
-    "brevo",
     "sdk",
     "webhooks",
     "otp"
@@ -30,7 +29,7 @@
     "node": ">=20.19"
   },
   "scripts": {
-    "generate": "openapi-typescript https://iris.orvlabs.com/openapi.json -o src/generated/api.ts",
+    "generate": "openapi-typescript https://iris.orvlabs.com/openapi.json -o src/generated/api.ts --default-non-nullable false --empty-objects-unknown",
     "build": "npm run generate && rm -rf dist && tsc",
     "test": "npm run build && node --test test/*.test.mjs",
     "prepublishOnly": "npm test"

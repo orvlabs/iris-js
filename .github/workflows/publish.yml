@@ -17,7 +17,7 @@ jobs:
       - run: npm test
       - name: Publish when the API or the code changed
         run: |
-          if ! npm view @orvlabs/iris version >/dev/null 2>&1; then npm publish; exit 0; fi
+          if [ -z "$(npm view "@orvlabs/iris@$(jq -r .version package.json)" version 2>/dev/null)" ]; then npm publish; exit 0; fi
           npm version "$(npm view @orvlabs/iris version)" --no-git-tag-version --allow-same-version >/dev/null
           if [ "$(npm pack --dry-run --json | jq -r '.[0].shasum')" = "$(npm view @orvlabs/iris dist.shasum)" ]; then echo "unchanged"; exit 0; fi
           npm version patch --no-git-tag-version
